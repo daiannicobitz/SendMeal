@@ -91,7 +91,7 @@
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="80dp">
 
         <TextView
             android:id="@+id/textView"
@@ -120,5 +120,49 @@
         </LinearLayout>
 
     </RadioGroup>
+
+    <EditText
+        android:id="@+id/plainText_CBU"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="CBU" />
+
+    <EditText
+        android:id="@+id/plainText_AliasCBU"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Alias CBU" />
+
+    <Switch
+        android:id="@+id/switchCargaInicial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Realizar carga inicial?" />
+
+    <SeekBar
+        android:id="@+id/seekBar_CreditoInicial"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:max="1500"
+        android:progress="1"
+        android:text="Credito"
+        android:textAlignment="center"
+        android:textDirection="firstStrongRtl" />
+
+    <CheckBox
+        android:id="@+id/checkBox_TerminosYCondiciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acepto los terminos y condiciones" />
+
+    <Button
+        android:id="@+id/button_Registrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registrar" />
 
 </LinearLayout>
