@@ -99,6 +99,12 @@
             android:inputType="number" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textView_fechaVencimiento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha vencimiento" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -143,16 +149,24 @@
         android:layout_height="wrap_content"
         android:text="Realizar carga inicial?" />
 
+    <TextView
+        android:id="@+id/textView_ValorCargaInicial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Carga Inicial"
+        android:visibility="gone"/>
+
     <SeekBar
         android:id="@+id/seekBar_CreditoInicial"
         android:layout_width="match_parent"
-        android:layout_height="74dp"
+        android:layout_height="45dp"
         android:max="1500"
         android:progress="1"
         android:progressTint="#FFFFFF"
         android:text="Credito"
         android:textAlignment="center"
-        android:textDirection="firstStrongRtl" />
+        android:textDirection="firstStrongRtl"
+        android:visibility="gone" />
 
     <CheckBox
         android:id="@+id/checkBox_TerminosYCondiciones"
