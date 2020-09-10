@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.Touch;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -20,7 +23,8 @@ import bitzgutierrezmaglianesi.sendmeal.model.CuentaBancaria;
 import bitzgutierrezmaglianesi.sendmeal.model.Tarjeta;
 import bitzgutierrezmaglianesi.sendmeal.model.Usuario;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
+
     private EditText txt_nombre;
     private EditText txt_clave;
     private EditText txt_validar_clave;
@@ -31,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText txt_alias_cbu;
     private EditText txt_mes;
     private EditText txt_anio;
+    private RadioButton rb_debito;
+    private RadioButton rb_credito;
+    private RadioGroup radioGroup;
     private SeekBar sb_Credito;
     private Switch switch_CargaInicial;
     private TextView textVw_CargaInicial;
@@ -41,7 +48,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        txt_nombre = (EditText) findViewById(R.id.plainText_nombre_apellido);
+
+        //obtener referencias a los widgets
+        radioGroup = (RadioGroup)  findViewById(R.id.radioGroup);
+        rb_debito = (RadioButton) findViewById(R.id.radioButton_debito);
+        rb_credito = (RadioButton) findViewById(R.id.radioButton_credito);
+        txt_nombre = (EditText) findViewById(R.id.plainTextNombreApellido);
         txt_clave = (EditText) findViewById(R.id.password_contraseña);
         txt_validar_clave = (EditText) findViewById(R.id.password_confirmar_contrasenia);
         txt_email = (EditText) findViewById(R.id.e_mail);
@@ -60,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         checkBox_terminosYCondiciones = (CheckBox) findViewById(R.id.checkBox_TerminosYCondiciones);
 
         button_Registrar = (Button) findViewById(R.id.button_Registrar);
-        button_Registrar.setOnClickListener(this);
+        button_Registrar.setOnClickListener(buttonRegistrar());
         button_Registrar.setEnabled(false);
 
         //verifica si el switch esta activado o no y hace visible o invisible el seekbar
@@ -72,26 +84,79 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //setear el valor que se selecciona con el seekbar en el textvw_cargainicial
         sb_Credito.setOnSeekBarChangeListener(returnOnSeekBarChangeListenerCargaInicial());
 
+
+    }
+
+    public View.OnClickListener buttonRegistrar(){
+
+            return new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    validarDatosRegistro();
+
+                }
+            };
     }
 
 
-    public void Registrar(View view){
-            String nombre = txt_nombre.getText().toString();
-            String clave = txt_clave.getText().toString();
-            String email = txt_email.getText().toString();
-            String alias_cbu = txt_alias_cbu.getText().toString();
-            String cbu = txt_cbu.getText().toString();
-            String numero_tarjeta = txt_numero_tarjeta.getText().toString();
-            String ccv = txt_ccv.getText().toString();
+    public void validarDatosRegistro(){
 
-        //Double credito;
-        // Validaciones
-         //   if (txt_validar_clave.equals(txt_clave)) {
+        String nombre = txt_nombre.getText().toString();
+        String clave = txt_clave.getText().toString();
+        String claveConfirmada = txt_validar_clave.getText().toString();
+        String email = txt_email.getText().toString();
+        String alias_cbu = txt_alias_cbu.getText().toString();
+        String cbu = txt_cbu.getText().toString();
+        String numero_tarjeta = txt_numero_tarjeta.getText().toString();
+        String ccv = txt_ccv.getText().toString();
+        String mes = txt_mes.getText().toString();
+        String anio = txt_anio.getText().toString();
 
-           // }
-
-
+        validarComponentesVacios();
+        validarSlider();
+        if(!validarContrasenias(clave,claveConfirmada)){
+            txt_validar_clave.setError("Las claves no coinciden.");
         }
+
+    }
+
+    public boolean validarContrasenias(String clave,String claveConfirmada){
+        return clave.equals(claveConfirmada);
+    }
+
+    public void validarSlider(){
+
+        if(switch_CargaInicial.isChecked()) {
+            if(textVw_CargaInicial.getText().toString().equals("Carga Inicial")){
+                Toast.makeText(this, "Debe determinar un valor de carga.", Toast.LENGTH_LONG).show();
+            }else if (Integer.parseInt(textVw_CargaInicial.getText().toString()) == 0)
+                Toast.makeText(this, "¡La carga debe ser mayor a 0!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void validarComponentesVacios(){
+
+        if(txt_email.getText().toString().isEmpty()){
+            txt_email.setError(mensajeCampoIncompleto());
+        }else if(txt_clave.getText().toString().isEmpty()){
+            txt_clave.setError(mensajeCampoIncompleto());
+        }else if (txt_numero_tarjeta.getText().toString().isEmpty()){
+            txt_numero_tarjeta.setError(mensajeCampoIncompleto());
+        }else if(txt_ccv.getText().toString().isEmpty()){
+            txt_ccv.setError(mensajeCampoIncompleto());
+        }else if(txt_mes.getText().toString().isEmpty()){
+            txt_mes.setError(mensajeCampoIncompleto());
+        }else if(txt_anio.getText().toString().isEmpty()){
+            txt_anio.setError(mensajeCampoIncompleto());
+        }
+
+        if(radioGroup.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "¡Debe seleccionar un tipo de tarjeta!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 
     public CompoundButton.OnCheckedChangeListener returnOnCheckedChangeListenerCargaInicial(){
 
@@ -181,8 +246,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
-    public void onClick(View view) {
-
+    public String mensajeCampoIncompleto(){
+        return "Este campo debe estar completo.";
     }
+
 }

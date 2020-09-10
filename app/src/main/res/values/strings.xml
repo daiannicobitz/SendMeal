@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Send Meal</string>
+
+    //Strings para activity_main
+    <string name="nombreYApellido">Nombre y Apellido</string>
+    <string name="mail">E-Mail</string>
+    <string name="contrasenia">Contraseña</string>
+    <string name="confirmar_contrasenia">Confirmar contraseña</string>
+    <string name="tipo_tarjeta">Tipo tarjeta:</string>
+    <string name="debito">Débito</string>
+    <string name="credito">Crédito</string>
+    <string name="num_tarjeta">Numero de tarjeta</string>
+    <string name="ccv">CCV</string>
+    <string name="fecha_vencimiento">Fecha vencimiento</string>
+    <string name="mes">Mes</string>
+    <string name="anio">Año</string>
+    <string name="cbu">CBU</string>
+    <string name="alias_cbu">Alias CBU</string>
+    <string name="realizar_cargaInicial">Realizar carga inicial?</string>
+    <string name="carga_inicial">Carga Inicial</string>
+    <string name="acepto_TYC">Acepto los terminos y condiciones</string>
+    <string name="registrar">Registrar</string>
+
+
 </resources>
