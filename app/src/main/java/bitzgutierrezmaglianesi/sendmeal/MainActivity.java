@@ -118,11 +118,7 @@ public class MainActivity extends AppCompatActivity {
         String mes = txt_mes.getText().toString();
         String anio = txt_anio.getText().toString();
 
-        validarComponentesVacios();
-        validarSlider();
-        if(!validarContrasenias(clave,claveConfirmada)){
-            txt_validar_clave.setError("Las claves no coinciden.");
-        }
+        validarComponentes(clave,claveConfirmada);
 
     }
 
@@ -132,15 +128,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void validarSlider(){
 
-        if(switch_CargaInicial.isChecked()) {
             if(textVw_CargaInicial.getText().toString().equals("Carga Inicial")){
                 Toast.makeText(this, "Debe determinar un valor de carga.", Toast.LENGTH_LONG).show();
-            }else if (Integer.parseInt(textVw_CargaInicial.getText().toString()) == 0)
+            }else if (Integer.parseInt(textVw_CargaInicial.getText().toString()) == 0) {
                 Toast.makeText(this, "¡La carga debe ser mayor a 0!", Toast.LENGTH_LONG).show();
-        }
+            }else Toast.makeText(this, "El usuario fue registrado con éxito!", Toast.LENGTH_LONG).show();
     }
 
-    public void validarComponentesVacios(){
+    public void validarComponentes(String clave,String claveConfirmada){
 
         if(txt_email.getText().toString().isEmpty()){
             txt_email.setError(mensajeCampoIncompleto());
@@ -150,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else if(txt_clave.getText().toString().isEmpty()){
             txt_clave.setError(mensajeCampoIncompleto());
+        }else if(!validarContrasenias(clave,claveConfirmada)){
+            txt_validar_clave.setError("Las claves no coinciden.");
         }else if (txt_numero_tarjeta.getText().toString().isEmpty()){
             txt_numero_tarjeta.setError(mensajeCampoIncompleto());
         }else if(txt_ccv.getText().toString().isEmpty()){
@@ -161,9 +158,12 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (rb_credito.isChecked() && !tarjetaVigente(txt_mes.getText().toString(),txt_anio.getText().toString())){
             txt_mes.setError("Tarjeta proxima a vencer");
-        }
-        if(radioGroup.getCheckedRadioButtonId() == -1) {
+        }else if(radioGroup.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "¡Debe seleccionar un tipo de tarjeta!", Toast.LENGTH_LONG).show();
+        }else if(switch_CargaInicial.isChecked()) {
+            validarSlider();
+        }else{
+            Toast.makeText(this, "El usuario fue registrado con éxito!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean correoValido(String correo){
         //creo la expresion regular para el correo
-        Pattern pat = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9./-_]@[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]*$");
+        Pattern pat = Pattern.compile("([a-zA-Z0-9./-_])*@[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]*$");
         // comparo con la expresion escrita
         Matcher match = pat.matcher(correo);
         //devuelvo si cumple el patron o no;
