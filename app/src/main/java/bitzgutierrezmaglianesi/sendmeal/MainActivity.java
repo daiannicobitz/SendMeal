@@ -19,6 +19,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.regex.*;
+
 import bitzgutierrezmaglianesi.sendmeal.model.CuentaBancaria;
 import bitzgutierrezmaglianesi.sendmeal.model.Tarjeta;
 import bitzgutierrezmaglianesi.sendmeal.model.Usuario;
@@ -139,7 +144,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(txt_email.getText().toString().isEmpty()){
             txt_email.setError(mensajeCampoIncompleto());
-        }else if(txt_clave.getText().toString().isEmpty()){
+        }
+        else if(!correoValido(txt_email.getText().toString())){
+            txt_email.setError("Formato inválido");
+        }
+        else if(txt_clave.getText().toString().isEmpty()){
             txt_clave.setError(mensajeCampoIncompleto());
         }else if (txt_numero_tarjeta.getText().toString().isEmpty()){
             txt_numero_tarjeta.setError(mensajeCampoIncompleto());
@@ -150,7 +159,9 @@ public class MainActivity extends AppCompatActivity {
         }else if(txt_anio.getText().toString().isEmpty()){
             txt_anio.setError(mensajeCampoIncompleto());
         }
-
+        else if (rb_credito.isChecked() && !tarjetaVigente(txt_mes.getText().toString(),txt_anio.getText().toString())){
+            txt_mes.setError("Tarjeta proxima a vencer");
+        }
         if(radioGroup.getCheckedRadioButtonId() == -1) {
             Toast.makeText(this, "¡Debe seleccionar un tipo de tarjeta!", Toast.LENGTH_LONG).show();
         }
@@ -248,6 +259,25 @@ public class MainActivity extends AppCompatActivity {
 
     public String mensajeCampoIncompleto(){
         return "Este campo debe estar completo.";
+    }
+
+    public boolean correoValido(String correo){
+        //creo la expresion regular para el correo
+        Pattern pat = Pattern.compile("[a-zA-Z0-9][a-zA-Z0-9./-_]@[a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9][a-zA-Z0-9]*$");
+        // comparo con la expresion escrita
+        Matcher match = pat.matcher(correo);
+        //devuelvo si cumple el patron o no;
+        return match.find();
+    }
+
+    public boolean tarjetaVigente(String mesTarjeta, String anioTarjeta){
+        Date fecha = new Date();
+        Calendar c = new GregorianCalendar();
+        c.setTime(fecha);
+        int mesActual = c.get(Calendar.MONTH);
+        int anioActual = c.get(Calendar.YEAR);
+        int diferencia = (Integer.parseInt(anioTarjeta)*12+Integer.parseInt(mesTarjeta)) - (anioActual*12+mesActual+1);
+        return diferencia>3;
     }
 
 }
