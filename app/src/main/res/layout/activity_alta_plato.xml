@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".model.AltaPlato">
+
+    <EditText
+        android:id="@+id/titulo"
+        android:layout_width="344dp"
+        android:layout_height="43dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Titulo"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="154dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="210dp"
+        android:layout_height="33dp"
+        android:text="Nuevo Plato"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="45dp" />
+
+    <EditText
+        android:id="@+id/descripcion"
+        android:layout_width="344dp"
+        android:layout_height="105dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Descripción"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="216dp" />
+
+    <EditText
+        android:id="@+id/precio"
+        android:layout_width="157dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="Precio"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="381dp" />
+
+    <EditText
+        android:id="@+id/calorias"
+        android:layout_width="151dp"
+        android:layout_height="39dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Calorías"
+        tools:layout_editor_absoluteX="221dp"
+        tools:layout_editor_absoluteY="381dp" />
+
+    <Button
+        android:id="@+id/button_Guardar"
+        android:layout_width="327dp"
+        android:layout_height="42dp"
+        android:text="GUARDAR"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="463dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -165,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "El usuario fue registrado con éxito!", Toast.LENGTH_LONG).show();
         }
+
+
+
     }
 
 
@@ -279,5 +282,8 @@ public class MainActivity extends AppCompatActivity {
         int diferencia = (Integer.parseInt(anioTarjeta)*12+Integer.parseInt(mesTarjeta)) - (anioActual*12+mesActual+1);
         return diferencia>3;
     }
+
+
+
 
 }

@@ -41,10 +41,10 @@
         android:inputType="textPassword" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tipo_tarjeta" />
+    android:id="@+id/textView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/tipo_tarjeta" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
